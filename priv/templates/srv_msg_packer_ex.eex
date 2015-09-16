@@ -1,0 +1,22 @@
+### MACHINE GENERATED CODE, DO NOT EDIT !!!
+### 该文件由程序生成，不要手动修改！！！
+
+defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Packer do
+  require Logger
+
+  def pack!(msg_id, body) do
+    case msg_id do<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 1 do %>
+      <%= :io_lib.format("~-3w", [id]) %> -> pack_<%= name %>(body)  # <%= msg.info.desc %><% end %>
+      _   -> Logger.warn("<%= mod.mod_name %>: unknown msg_id #{msg_id}")
+    end
+  end
+
+  def unpack!(msg_id, body) do
+    case msg_id do<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 0 do %>
+      <%= :io_lib.format("~-3w", [id]) %> -> unpack_<%= name %>(body)  # <%= msg.info.desc %><% end %>
+      _   -> Logger.warn("<%= mod.mod_name %>: unknown msg_id #{msg_id}")
+    end
+  end
+<%= for name <- mod.msgs do %>
+<%= Excg.Builder.SrvMsgEx.build(excg, name) %><% end %>
+end

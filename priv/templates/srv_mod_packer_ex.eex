@@ -1,0 +1,18 @@
+### MACHINE GENERATED CODE, DO NOT EDIT !!!
+### 该文件由程序生成，不要手动修改！！！
+
+defmodule <%= excg.app_mod %>.Plug.Packer do
+  def pack!(mod_id, msg_id, body) do
+    case mod_id do<%= for mod <- excg.msg_mod_infos do %>
+      <%= mod.id %> -> <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Packer.pack!(msg_id, body)  # <%= mod.desc %><% end %>
+      _ -> raise "unknown mod_id #{mod_id}"
+    end
+  end
+
+  def unpack!(mod_id, msg_id, body) do
+    case mod_id do<%= for mod <- excg.msg_mod_infos do %>
+      <%= mod.id %> -> <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Packer.unpack!(msg_id, body)  # <%= mod.desc %><% end %>
+      _ -> raise "unknown mod_id #{mod_id}"
+    end
+  end
+end

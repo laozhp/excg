@@ -1,0 +1,37 @@
+### MACHINE GENERATED CODE, DO NOT EDIT !!!
+### 该文件由程序生成，不要手动修改！！！
+
+defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Router do
+  alias <%= excg.app_mod %>.Plug.Msg
+  alias <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.MsgHandler
+  require Logger
+
+  @moduledoc """
+  <%= mod.desc %>
+  """
+
+  def mod_id, do: <%= mod.id %>
+<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id do %>
+  def <%= Mix.Excg.patch("#{name}", 30) %>, do: <%= :io_lib.format("~-3w", [id]) %>  # <%= msg.info.desc %><% end %>
+<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id do %>
+  def id_to_name(<%= :io_lib.format("~-3w", [id]) %>), do: "<%= name %>"<% end %>
+  def id_to_name( _ ), do: "unknown"
+<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id do %>
+  def id_to_desc(<%= :io_lib.format("~-3w", [id]) %>), do: "<%= msg.info.desc %>"<% end %>
+  def id_to_desc( _ ), do: "未知"
+<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 1 do %>
+  def <%= name %>_msg(body \\ nil), do: msg(<%= id %>, body || <%= name %>_body)<% end %>
+<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 1 do %>
+<%= Excg.Builder.SrvMsgEx.build_def_val(excg, name) %><% end %>
+  def call(conn, _opts) do
+    msg_id = conn.request.msg_id
+    case msg_id do<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 0 do %>
+      <%= :io_lib.format("~-3w", [id]) %> -> MsgHandler.<%= name %>(conn, [])<% end %>
+      _   -> Logger.warn("<%= mod.mod_name %>: unknown msg_id #{msg_id}")
+    end
+  end
+
+  defp msg(msg_id, body) do
+    %Msg{mod_id: mod_id, msg_id: msg_id, body: body}
+  end
+end

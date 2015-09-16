@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>laozhp</Author>
+  <LastAuthor>Terry</LastAuthor>
+  <Created>2015-06-24T14:09:03Z</Created>
+  <LastSaved>2015-09-16T09:22:29Z</LastSaved>
+  <Version>12.00</Version>
+ </DocumentProperties>
+ <CustomDocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <KSOProductBuildVer dt:dt="string">2052-9.1.0.4866</KSOProductBuildVer>
+ </CustomDocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>10500</WindowHeight>
+  <WindowWidth>21510</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>135</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Center"/>
+   <Borders/>
+   <Font ss:FontName="宋体" x:CharSet="134" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s26" ss:Name="好">
+   <Font ss:FontName="宋体" x:CharSet="134" ss:Size="11" ss:Color="#006100"/>
+   <Interior ss:Color="#C6EFCE" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s28" ss:Name="适中">
+   <Font ss:FontName="宋体" x:CharSet="134" ss:Size="11" ss:Color="#9C6500"/>
+   <Interior ss:Color="#FFEB9C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s62">
+   <Alignment ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s68" ss:Parent="s26">
+   <Alignment ss:Vertical="Center" ss:WrapText="1"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="item 物品">
+  <Table ss:ExpandedColumnCount="11" ss:ExpandedRowCount="11" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="13.5">
+   <Column ss:Index="2" ss:Width="51"/>
+   <Column ss:Width="55.5"/>
+   <Column ss:Width="81.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="57"/>
+   <Column ss:AutoFitWidth="0" ss:Width="47.25" ss:Span="1"/>
+   <Column ss:Index="8" ss:Width="69.75"/>
+   <Column ss:Index="10" ss:AutoFitWidth="0" ss:Width="204"/>
+   <Column ss:Width="63"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">sort_id</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">排序标识</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">id</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">标识</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">name</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">名称</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">desc</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">描述</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">item_type</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">物品类型</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">item_use_type</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">物品使用类型</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">equip_type</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">装备类型</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">use_data</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">使用类型所需的数据</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">assets_after_use</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">[{最小数量,最大数量,[{权重,{资产标识,资产数量,[{资产选项类型,资产选项值}]}}],是否唯一}]</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">stack_num</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">堆叠数量</ss:Data></Comment></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">integer</Data></Cell>
+    <Cell><Data ss:Type="String">integer</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">min: 1000&#10;max: 9999</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">string</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">名称：常量，asset_type&#10;1, coin, 铜钱&#10;2, gold, 金币&#10;3, exp, 经验</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">string</Data></Cell>
+    <Cell><Data ss:Type="String">integer</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">物品类型：常量，item_type&#10;1, equip, 装备&#10;2, gem, 宝石&#10;3, prop, 道具&#10;4, stuff, 材料&#10;5, gift, 礼包</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">integer</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">物品使用类型：常量，item_use_type&#10;0, no_use, 不能直接使用&#10;1, assets, 使用后产出资产</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">列的顺序</Data></Cell>
+    <Cell><Data ss:Type="String">integer</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">装备类型：常量，equip_type&#10;0, not_equip, 不是装备&#10;1, weapon, 武器</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">string</Data></Cell>
+    <Cell><Data ss:Type="String">[random_asset]</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">资产标识：常量，asset_type&#10;1, coin, 铜钱&#10;2, gold, 金币&#10;3, exp, 经验&#10;&#10;资产选项类型：常量，asset_opt_type&#10;1, exp_time, 过期时间</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">integer</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">default: 1&#10;min: 1</ss:Data></Comment></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">rcs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out, srv_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">rcs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out, srv_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">rcs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out, srv_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">rc</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">rcs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out, srv_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">rcs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out, srv_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">可以随意</Data></Cell>
+    <Cell><Data ss:Type="String">rcs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out, srv_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">cs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">cli_out, srv_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">rcs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out, srv_out</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">rcs</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">required, cli_out, srv_out</ss:Data></Comment></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">pk</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">pri_key</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String">u</Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40">unique</ss:Data></Comment></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">调整</Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">排序标识</Data></Cell>
+    <Cell><Data ss:Type="String">标识</Data></Cell>
+    <Cell><Data ss:Type="String">名称</Data></Cell>
+    <Cell><Data ss:Type="String">描述</Data></Cell>
+    <Cell><Data ss:Type="String">物品类型</Data></Cell>
+    <Cell><Data ss:Type="String">物品使用类型</Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">装备类型</Data></Cell>
+    <Cell><Data ss:Type="String">使用类型所需的数据</Data></Cell>
+    <Cell><Data ss:Type="String">使用之后的产出</Data></Cell>
+    <Cell><Data ss:Type="String">堆叠数量</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1000</Data></Cell>
+    <Cell><Data ss:Type="Number">1000</Data></Cell>
+    <Cell><Data ss:Type="String">物品1000</Data></Cell>
+    <Cell><Data ss:Type="String">物品&lt;%=@id%&gt;</Data></Cell>
+    <Cell><Data ss:Type="String">equip</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:Index="8"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:Index="10"><Data ss:Type="String">[]</Data></Cell>
+    <Cell><Data ss:Type="Number">99</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1001</Data></Cell>
+    <Cell><Data ss:Type="Number">1001</Data></Cell>
+    <Cell><Data ss:Type="String">物品1001</Data></Cell>
+    <Cell><Data ss:Type="String">物品&lt;%=@id%&gt;</Data></Cell>
+    <Cell><Data ss:Type="String">宝石</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">在中间</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:Index="10"><Data ss:Type="String">[{1,1,[{1,{2,500,[]}}]}]</Data></Cell>
+    <Cell><Data ss:Type="Number">99</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="27">
+    <Cell><Data ss:Type="Number">1002</Data></Cell>
+    <Cell><Data ss:Type="Number">1002</Data></Cell>
+    <Cell><Data ss:Type="String">物品1002</Data></Cell>
+    <Cell><Data ss:Type="String">物品&lt;%=@id%&gt;</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s68"><Data ss:Type="String">加一列&#10;也不会</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:Index="10" ss:StyleID="s62"><Data ss:Type="String">[{1,3,[{5,{2,500}},{5,{3,30}}]},&#10; {2,4,[{3,{2,50,[]}},{7,{3,3}}]}]</Data></Cell>
+    <Cell><Data ss:Type="Number">99</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1003</Data></Cell>
+    <Cell><Data ss:Type="Number">1003</Data></Cell>
+    <Cell><Data ss:Type="String">物品1003</Data></Cell>
+    <Cell><Data ss:Type="String">物品&lt;%=@id%&gt;</Data></Cell>
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">影响输出</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:Index="10"><Data ss:Type="String">[]</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1004</Data></Cell>
+    <Cell><Data ss:Type="Number">1004</Data></Cell>
+    <Cell><Data ss:Type="String">物品1004</Data></Cell>
+    <Cell><Data ss:Type="String">物品&lt;%=@id%&gt;</Data></Cell>
+    <Cell><Data ss:Type="Number">5</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:Index="8"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:Index="10"><Data ss:Type="String">[]</Data></Cell>
+    <Cell><Data ss:Type="Number">99</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>8</ActiveRow>
+     <ActiveCol>3</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

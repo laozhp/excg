@@ -1,0 +1,8 @@
+defmodule Const do
+  # def asset_type, do: %{
+  #   coin: {1, "铜钱"},
+  #   gold: {2, "金币"},
+  #   exp:  {3, "经验"},
+  #   }
+
+end

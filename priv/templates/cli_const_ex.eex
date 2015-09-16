@@ -1,0 +1,47 @@
+### MACHINE GENERATED CODE, DO NOT EDIT !!!
+### 该文件由程序生成，不要手动修改！！！
+
+defmodule <%= excg.app_mod %>.Const do
+  @moduledoc """
+  系统常量
+  """
+
+  @doc """
+  返回所有常量的列表
+  """
+  @spec const_list() :: [atom]
+  def const_list do
+    [<%= for const_type <- excg.const_types do %>
+      :<%= const_type %>,<% end %>
+    ]
+  end
+
+
+  @doc """
+  返回某个常量的定义列表
+  """
+  @spec const_list(atom) :: [{integer, atom, String.t}]
+<%= for {type, const} <- excg.const_list do %>
+  def const_list(:<%= type %>) do
+    [<%= for {id, name, desc} <- const do %>
+      {<%= id %>, :<%= name %>, "<%= desc %>"},<% end %>
+    ]
+  end
+<% end %>
+
+  @doc """
+  将id转换成atom
+  """
+  @spec id_to_atom(atom, integer) :: atom
+<%= for {type, const} <- excg.const_list do %><%= for {id, name, desc} <- const do %>
+  def id_to_atom(:<%= type %>, <%= id %>), do: :<%= name %>  # <%= desc %><% end %>
+<% end %>
+
+  @doc """
+  将atom转换成id
+  """
+  @spec atom_to_id(atom, atom) :: integer
+<%= for {type, const} <- excg.const_list do %><%= for {id, name, desc} <- const do %>
+  def atom_to_id(:<%= type %>, :<%= name %>), do: <%= id %>  # <%= desc %><% end %>
+<% end %>
+end

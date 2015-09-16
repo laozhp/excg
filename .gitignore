@@ -1,0 +1,10 @@
+/_build
+/deps
+/demo/ebin
+/demo/cli_out
+/demo/srv_out
+/*.bat
+erl_crash.dump
+*.ez
+/src/json_cut_lexer.erl
+/src/json_cut_parser.erl

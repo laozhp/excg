@@ -1,0 +1,12 @@
+defmodule Cfun do
+  import Excg.Parser.Data, only: [parse_const: 3, parse_error: 2]
+
+  # 例子
+  # def random_asset(excg, data, _opts) do
+  #   if data.min_num > data.max_num do
+  #     parse_error(excg, "最小值#{data.min_num}比最大值#{data.max_num}还大")
+  #   end
+  #   data
+  # end
+
+end

@@ -1,0 +1,11 @@
+### MACHINE GENERATED CODE, DO NOT EDIT !!!
+### 该文件由程序生成，不要手动修改！！！
+
+defmodule <%= ex_mod %> do
+  @moduledoc false
+
+  def singleton do
+<%= Excg.Builder.CliCfgEx.build_fields(excg, 2, cfg, hd(data)) %>
+  end
+
+end

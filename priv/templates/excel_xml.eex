@@ -1,0 +1,73 @@
+<?xml version="1.0"?><% alias Excg.Builder.ExcelXml %>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>laozhp</Author>
+  <Created><%= Mix.Excg.now %></Created>
+  <Version>12.00</Version>
+ </DocumentProperties>
+ <CustomDocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <KSOProductBuildVer dt:dt="string">2052-9.1.0.4866</KSOProductBuildVer>
+ </CustomDocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>10500</WindowHeight>
+  <WindowWidth>21510</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>135</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Center"/>
+   <Borders/>
+   <Font ss:FontName="宋体" x:CharSet="134" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+ </Styles><% %{info: info, list: list, map: map} = cfg %>
+ <Worksheet ss:Name="<%= info.name %> <%= info.desc %>">
+  <Table ss:ExpandedColumnCount="<%= length(list) %>" ss:ExpandedRowCount="6" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="13.5">
+   <Row ss:AutoFitHeight="0"><%= for fld_name <- list, desc = ExcelXml.cfg_fld_desc(excg, map, fld_name) do %>
+    <Cell><Data ss:Type="String"><%= fld_name %></Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><%= String.replace(to_string(desc), "\n", "&#10;") %></ss:Data></Comment></Cell><% end %>
+   </Row>
+   <Row ss:AutoFitHeight="0"><%= for fld_name <- list, {name, desc} = ExcelXml.cfg_type_opts(excg, map, fld_name) do %>
+    <Cell><Data ss:Type="String"><%= name %></Data><%= if desc != "" do %><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><%= String.replace(to_string(desc), "\n", "&#10;") %></ss:Data></Comment><% end %></Cell><% end %>
+   </Row>
+   <Row ss:AutoFitHeight="0"><%= for fld_name <- list, {name, desc} = ExcelXml.cfg_rcs(excg, map, fld_name) do %>
+    <Cell><Data ss:Type="String"><%= name %></Data><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><%= String.replace(to_string(desc), "\n", "&#10;") %></ss:Data></Comment></Cell><% end %>
+   </Row>
+   <Row ss:AutoFitHeight="0"><%= for fld_name <- list, {name, desc} = ExcelXml.cfg_misc_opts(excg, map, fld_name) do %>
+    <Cell><Data ss:Type="String"><%= name %></Data><%= if desc != "" do %><Comment ss:Author=""><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><%= String.replace(to_string(desc), "\n", "&#10;") %></ss:Data></Comment><% end %></Cell><% end %>
+   </Row>
+   <Row ss:AutoFitHeight="0"><%= for _fld_name <- list do %>
+    <Cell><Data ss:Type="String"></Data></Cell><% end %>
+   </Row>
+   <Row ss:AutoFitHeight="0"><%= for fld_name <- list, fld = map[fld_name] do %>
+    <Cell><Data ss:Type="String"><%= fld.desc %></Data></Cell><% end %>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Selected/>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
