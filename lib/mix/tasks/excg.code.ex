@@ -51,14 +51,14 @@ defmodule Mix.Tasks.Excg.Code do
     app = to_string(Mix.Excg.get_arg_env(arg, env, :app, app))
     dir = Mix.Excg.get_arg_env(arg, env, :dir, "excg")
     xml_dir = Mix.Excg.get_arg_env(arg, env, :xml_dir, "#{dir}/xml")
-    cli_out_dir = Mix.Excg.get_arg_env(arg, env, :cli_out, nil)
-    srv_out_dir = Mix.Excg.get_arg_env(arg, env, :srv_out, "lib")
+    cli_out = Mix.Excg.get_arg_env(arg, env, :cli_out, nil)
+    srv_out = Mix.Excg.get_arg_env(arg, env, :srv_out, "lib")
     cli_lang = Mix.Excg.get_arg_env(arg, env, :cli_lang, "lua")
     srv_lang = Mix.Excg.get_arg_env(arg, env, :srv_lang, "ex")
     force = Mix.Excg.get_arg_env(arg, env, :force, false)
     app_mod = Mix.Utils.camelize(app)
     %{excg | app: app, app_mod: app_mod, dir: dir, xml_dir: xml_dir,
-             cli_out_dir: cli_out_dir, srv_out_dir: srv_out_dir,
+             cli_out: cli_out, srv_out: srv_out,
              cli_lang: cli_lang, srv_lang: srv_lang, force: force}
   end
 
@@ -70,70 +70,70 @@ defmodule Mix.Tasks.Excg.Code do
   end
 
   defp gen_const_srv(excg) do
-    if excg.srv_out_dir do
+    if excg.srv_out do
       do_gen_const_srv(excg)
     end
     excg
   end
 
   defp gen_error_code_srv(excg) do
-    if excg.srv_out_dir do
+    if excg.srv_out do
       do_gen_error_code_srv(excg)
     end
     excg
   end
 
   defp gen_mod_msg_srv(excg) do
-    if excg.srv_out_dir do
+    if excg.srv_out do
       do_gen_mod_msg_srv(excg)
     end
     excg
   end
 
   defp gen_all_msg_srv(excg) do
-    if excg.srv_out_dir do
+    if excg.srv_out do
       do_gen_all_msg_srv(excg)
     end
     excg
   end
 
   defp gen_all_cfg_srv(excg) do
-    if excg.srv_out_dir do
+    if excg.srv_out do
       do_gen_all_cfg_srv(excg)
     end
     excg
   end
 
   defp gen_const_cli(excg) do
-    if excg.cli_out_dir do
+    if excg.cli_out do
       do_gen_const_cli(excg)
     end
     excg
   end
 
   defp gen_error_code_cli(excg) do
-    if excg.cli_out_dir do
+    if excg.cli_out do
       do_gen_error_code_cli(excg)
     end
     excg
   end
 
   defp gen_mod_msg_cli(excg) do
-    if excg.cli_out_dir do
+    if excg.cli_out do
       do_gen_mod_msg_cli(excg)
     end
     excg
   end
 
   defp gen_all_msg_cli(excg) do
-    if excg.cli_out_dir do
+    if excg.cli_out do
       do_gen_all_msg_cli(excg)
     end
     excg
   end
 
   defp gen_all_cfg_cli(excg) do
-    if excg.cli_out_dir do
+    if excg.cli_out do
       do_gen_all_cfg_cli(excg)
     end
     excg
@@ -141,7 +141,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_const_cli(excg) do
     lang = excg.cli_lang
-    dir = Path.join(excg.cli_out_dir, excg.app)
+    dir = Path.join(excg.cli_out, excg.app)
     write_if_expired(
       dir, "const.ex", excg, "cli_const_#{lang}.eex",
       src: "const.exs")
@@ -149,7 +149,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_const_srv(excg) do
     lang = excg.srv_lang
-    dir = Path.join(excg.srv_out_dir, excg.app)
+    dir = Path.join(excg.srv_out, excg.app)
     write_if_expired(
       dir, "const.ex", excg, "srv_const_#{lang}.eex",
       src: "const.exs")
@@ -157,7 +157,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_error_code_cli(excg) do
     lang = excg.cli_lang
-    dir = Path.join(excg.cli_out_dir, excg.app)
+    dir = Path.join(excg.cli_out, excg.app)
     write_if_expired(
       dir, "error_code.ex", excg, "cli_error_code_#{lang}.eex",
       src: "error_code.exs")
@@ -165,7 +165,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_error_code_srv(excg) do
     lang = excg.srv_lang
-    dir = Path.join(excg.srv_out_dir, excg.app)
+    dir = Path.join(excg.srv_out, excg.app)
     write_if_expired(
       dir, "error_code.ex", excg, "srv_error_code_#{lang}.eex",
       src: "error_code.exs")
@@ -173,7 +173,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_mod_msg_cli(excg) do
     lang = excg.cli_lang
-    dir = Path.join([excg.cli_out_dir, excg.app, "plug"])
+    dir = Path.join([excg.cli_out, excg.app, "plug"])
     write_if_expired(
       dir, "packer.ex", excg, "cli_mod_packer_#{lang}.eex", all_msg: true)
     write_if_expired(
@@ -182,7 +182,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_mod_msg_srv(excg) do
     lang = excg.srv_lang
-    dir = Path.join([excg.srv_out_dir, excg.app, "plug"])
+    dir = Path.join([excg.srv_out, excg.app, "plug"])
     write_if_expired(
       dir, "packer.ex", excg, "srv_mod_packer_#{lang}.eex", all_msg: true)
     write_if_expired(
@@ -191,7 +191,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_all_msg_cli(excg) do
     lang = excg.cli_lang
-    out_dir = excg.cli_out_dir
+    out_dir = excg.cli_out
     app = excg.app
     for mod <- excg.msg_mod_infos do
       mod_name = to_string(mod.name)
@@ -210,7 +210,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_all_msg_srv(excg) do
     lang = excg.srv_lang
-    out_dir = excg.srv_out_dir
+    out_dir = excg.srv_out
     app = excg.app
     for mod <- excg.msg_mod_infos do
       mod_name = to_string(mod.name)
@@ -229,7 +229,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_all_cfg_cli(excg) do
     lang = excg.cli_lang
-    excg_out_dir = excg.cli_out_dir
+    excg_out_dir = excg.cli_out
     app = excg.app
     data_map = excg.data_map
     for {cfg_name, cfg} <- excg.cfg_map do
@@ -240,7 +240,7 @@ defmodule Mix.Tasks.Excg.Code do
           app: app, mod_name: to_string(mod_name),
           cfg_name: to_string(cfg_name), lang: lang}
         dir =
-          Keyword.get(opts, :cli_out_dir, "{app}/mod/{mod_name}")
+          Keyword.get(opts, :cli_out, "{app}/mod/{mod_name}")
           |> replace_vars(vars)
         ex_mod = path_to_ex_mod(Path.join(dir, cfg.mod))
         dir = Path.join(excg_out_dir, dir)
@@ -263,7 +263,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_all_cfg_srv(excg) do
     lang = excg.srv_lang
-    excg_out_dir = excg.srv_out_dir
+    excg_out_dir = excg.srv_out
     app = excg.app
     data_map = excg.data_map
     for {cfg_name, cfg} <- excg.cfg_map do
@@ -274,7 +274,7 @@ defmodule Mix.Tasks.Excg.Code do
           app: app, mod_name: to_string(mod_name),
           cfg_name: to_string(cfg_name), lang: lang}
         dir =
-          Keyword.get(opts, :srv_out_dir, "{app}/mod/{mod_name}")
+          Keyword.get(opts, :srv_out, "{app}/mod/{mod_name}")
           |> replace_vars(vars)
         ex_mod = path_to_ex_mod(Path.join(dir, cfg.mod))
         dir = Path.join(excg_out_dir, dir)
