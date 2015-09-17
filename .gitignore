@@ -3,6 +3,7 @@
 /demo/ebin
 /demo/cli_out
 /demo/srv_out
+/demo/json
 /*.bat
 erl_crash.dump
 *.ez

@@ -27,6 +27,7 @@ config :excg, :xml,
   dir: "demo"
 
 config :excg, :code,
+  json_out: "demo/json",
   dir: "demo",
   cli_out: "demo/cli_out",
   cli_lang: "ex",

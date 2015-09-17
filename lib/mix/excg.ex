@@ -8,6 +8,7 @@ defmodule Mix.Excg do
     xml_dir:        "excg/xml",
     cli_out:        nil,
     srv_out:        "lib",
+    json_out:       nil,
     cli_lang:       "lua",
     srv_lang:       "ex",
     force:          false,
