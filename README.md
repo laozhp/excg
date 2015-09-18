@@ -78,11 +78,11 @@ end
 
 * 编辑xml文件，增加配置数据
 
-![item_xml](priv/item_xml.png)
+![item_xml](https://raw.githubusercontent.com/laozhp/excg/master/priv/item_xml.png)
 
 * 用命令`mix excg.code`，生成代码文件
 
-![item_cfg](priv/item_cfg.png)
+![item_cfg](https://raw.githubusercontent.com/laozhp/excg/master/priv/item_cfg.png)
 
 
 ## 主要特点
