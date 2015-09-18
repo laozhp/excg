@@ -27,8 +27,9 @@ config :excg, :xml,
   dir: "demo"
 
 config :excg, :code,
-  json_out: "demo/json",
   dir: "demo",
   cli_out: "demo/cli_out",
-  cli_lang: "ex",
-  srv_out: "demo/srv_out"
+  srv_out: "demo/srv_out",
+  json_out: "demo/json",
+  yaml_out: "demo/yaml",
+  cli_lang: "ex"

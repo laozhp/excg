@@ -4,6 +4,7 @@
 /demo/cli_out
 /demo/srv_out
 /demo/json
+/demo/yaml
 /*.bat
 erl_crash.dump
 *.ez

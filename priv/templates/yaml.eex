@@ -1,0 +1,2 @@
+<%= for row <- data do %>
+- <%= Excg.Builder.Yaml.build_fields(excg, 1, cfg, row) %><% end %>

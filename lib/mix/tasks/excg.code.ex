@@ -18,6 +18,7 @@ defmodule Mix.Tasks.Excg.Code do
     * `--cli-out` - 指定客户端输出目录，默认不输出
     * `--srv-out` - 指定服务端输出目录，默认lib
     * `--json-out` - 指定json的输出目录，默认不输出
+    * `--yaml-out` - 指定yaml的输出目录，默认不输出
     * `--cli-lang` - 指定客户端语言，默认lua
     * `--srv-lang` - 指定服务端语言，默认ex
     * `-f`, `--force` - 不检测变化(该检测并不完美)，强制输出
@@ -43,6 +44,7 @@ defmodule Mix.Tasks.Excg.Code do
     |> gen_all_msg_cli
     |> gen_all_cfg_cli
     |> gen_json
+    |> gen_yaml
   end
 
   defp parse_args(excg, args) do
@@ -56,12 +58,14 @@ defmodule Mix.Tasks.Excg.Code do
     cli_out = Mix.Excg.get_arg_env(arg, env, :cli_out, nil)
     srv_out = Mix.Excg.get_arg_env(arg, env, :srv_out, "lib")
     json_out = Mix.Excg.get_arg_env(arg, env, :json_out, nil)
+    yaml_out = Mix.Excg.get_arg_env(arg, env, :yaml_out, nil)
     cli_lang = Mix.Excg.get_arg_env(arg, env, :cli_lang, "lua")
     srv_lang = Mix.Excg.get_arg_env(arg, env, :srv_lang, "ex")
     force = Mix.Excg.get_arg_env(arg, env, :force, false)
     app_mod = Mix.Utils.camelize(app)
     %{excg | app: app, app_mod: app_mod, dir: dir, xml_dir: xml_dir,
-             cli_out: cli_out, srv_out: srv_out, json_out: json_out,
+             cli_out: cli_out, srv_out: srv_out,
+             json_out: json_out, yaml_out: yaml_out,
              cli_lang: cli_lang, srv_lang: srv_lang, force: force}
   end
 
@@ -145,6 +149,13 @@ defmodule Mix.Tasks.Excg.Code do
   defp gen_json(excg) do
     if excg.json_out do
       do_gen_json(excg)
+    end
+    excg
+  end
+
+  defp gen_yaml(excg) do
+    if excg.yaml_out do
+      do_gen_yaml(excg)
     end
     excg
   end
@@ -316,6 +327,24 @@ defmodule Mix.Tasks.Excg.Code do
         "json_singleton.eex"
       else
         "json.eex"
+      end
+      write_if_expired(
+        dir, filename, excg, tpl,
+        bindings: bindings, cfg: cfg)
+    end
+  end
+
+  defp do_gen_yaml(excg) do
+    dir = excg.yaml_out
+    data_map = excg.data_map
+    for {cfg_name, cfg} <- excg.cfg_map do
+      filename = "#{cfg_name}_cfg.yaml"
+      data = data_map[cfg_name]
+      bindings = [cfg: cfg, data: data]
+      tpl = if cfg.info.singleton do
+        "yaml_singleton.eex"
+      else
+        "yaml.eex"
       end
       write_if_expired(
         dir, filename, excg, tpl,

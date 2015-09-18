@@ -1,0 +1,1 @@
+<%= Excg.Builder.Yaml.build_fields(excg, 0, cfg, hd(data)) %>
