@@ -74,13 +74,13 @@ defmodule ItemCfg do
 end
 ```
 
-* 用命令`mix excg.xml`，生成xml文件
+* 运行命令`mix excg.xml`，生成或者更新xml文件
 
-* 编辑xml文件，增加配置数据
+* 编辑xml文件，增加或者修改配置数据
 
 ![item_xml](https://raw.githubusercontent.com/laozhp/excg/master/priv/item_xml.png)
 
-* 用命令`mix excg.code`，生成代码文件
+* 运行命令`mix excg.code`，生成或者更新代码文件
 
 ![item_cfg](https://raw.githubusercontent.com/laozhp/excg/master/priv/item_cfg.png)
 
@@ -257,7 +257,6 @@ end
 * required - 字段不能为空，默认为true
 * srv_out - 服务端输出，默认为true
 * unique - 该字段记录的值是否唯一，默认为false
-
 * ext_type - 扩展类型，目前只支持:tuple，将数组输出为tuple
 * default_items - 数组字段的默认值
 * max_items - 数组元素的最大数量(含)
