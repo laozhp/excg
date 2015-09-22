@@ -198,7 +198,6 @@ end
 * min_len - 字符串的最小字符长度(含)
 * refrence - 引用表，该字段的值是另一个表的主键的值
 * required - 字段不能为空，默认为true
-
 * ext_type - 扩展类型，目前只支持:tuple，将数组输出为tuple
 * default_items - 数组字段的默认值
 * max_items - 数组元素的最大数量(含)
