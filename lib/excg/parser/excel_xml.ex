@@ -34,7 +34,7 @@ defmodule Excg.Parser.ExcelXml do
           list = List.duplicate(nil, count) ++ list
         end
         data = xpath(cell, ~x"Data/text()")
-        if data, do: field = List.to_atom(data)
+        field = if data, do: List.to_atom(data), else: nil
         unless map[field], do: field = nil
         {index + 1, [field | list]}
       end)
@@ -91,10 +91,10 @@ defmodule Excg.Parser.ExcelXml do
     fld_name = get_fld_name(excg.fld_names, fld_i)
     if fld_name do
       fld = excg.cfg.map[fld_name]
-      if cell do
-        data = xpath(cell, ~x"Data/text()"l)
+      data = if cell do
+        xpath(cell, ~x"Data/text()"l)
       else
-        data = []
+        []
       end
       Data.parse_cell(excg, fld, data, row_i, fld_i, map)
     else

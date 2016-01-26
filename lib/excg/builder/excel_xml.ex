@@ -207,7 +207,7 @@ defmodule Excg.Builder.ExcelXml do
           list = List.duplicate(nil, count) ++ list
         end
         data = xpath(cell, ~x"Data/text()")
-        if data, do: field = List.to_atom(data)
+        field = if data, do: List.to_atom(data), else: nil
         unless map[field], do: field = nil
         {index + 1, [field | list]}
       end)

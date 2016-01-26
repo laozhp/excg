@@ -1,4 +1,4 @@
-# Excg -- Elixir code generator for game client and server
+# Excg -- Elixir code generator
 
 
 ## Licence
@@ -15,8 +15,8 @@ The MIT License (MIT)
 
 ## 安装使用
 
-* 安装Erlang 17.0或者更新的版本
-* 安装Elixir 1.0或者更新的版本
+* 安装Erlang 18.0或者更新的版本
+* 安装Elixir 1.2或者更新的版本
 * `git clone https://github.com/laozhp/excg`
 * `cd excg`
 * Update dependencies: `mix deps.get`
