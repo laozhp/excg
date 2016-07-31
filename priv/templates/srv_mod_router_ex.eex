@@ -1,11 +1,9 @@
 ### MACHINE GENERATED CODE, DO NOT EDIT !!!
 ### 该文件由程序生成，不要手动修改！！！
 
-defmodule <%= excg.app_mod %>.Plug.Router do
-  use <%= excg.app_mod %>.Plug.Builder
+defmodule <%= excg.app_mod %>.Mod.Router do
+  @moduledoc false
   require Logger
-
-  plug :route
 
   def mod_msg_name(mod_id, msg_id) do
     mod_name = id_to_name(mod_id)
@@ -23,13 +21,14 @@ defmodule <%= excg.app_mod %>.Plug.Router do
     end
   end
 <%= for mod <- excg.msg_mod_infos do %>
-  def id_to_name(<%= :io_lib.format("~-3w", [mod.id]) %>), do: "<%= mod.name %>"<% end %>
-  def id_to_name( _ ), do: "unknown"
+  def id_to_name(<%= mod.id %>), do: "<%= mod.name %>"<% end %>
+  def id_to_name(_), do: "unknown"
 <%= for mod <- excg.msg_mod_infos do %>
-  def id_to_desc(<%= :io_lib.format("~-3w", [mod.id]) %>), do: "<%= mod.desc %>"<% end %>
-  def id_to_desc( _ ), do: "未知"
+  def id_to_desc(<%= mod.id %>), do: "<%= mod.desc %>"<% end %>
+  def id_to_desc(_), do: "未知"
 
-  defp route(conn, _opts) do
+  @lint {Credo.Check.Refactor.CyclomaticComplexity, false}
+  def route(conn, _opts) do
     mod_id = conn.request.mod_id
     case mod_id do<%= for mod <- excg.msg_mod_infos do %>
       <%= :io_lib.format("~-3w", [mod.id]) %> -> <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Router.call(conn, [])  # <%= mod.desc %><% end %>

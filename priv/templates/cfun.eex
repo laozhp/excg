@@ -1,4 +1,5 @@
 defmodule Cfun do
+  @moduledoc false
   import Excg.Parser.Data, only: [parse_const: 3, parse_error: 2]
 
   # 例子

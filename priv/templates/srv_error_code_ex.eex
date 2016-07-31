@@ -1,6 +1,7 @@
 ### MACHINE GENERATED CODE, DO NOT EDIT !!!
 ### 该文件由程序生成，不要手动修改！！！
 
-defmodule <%= excg.app_mod %>.ErrorCode do<%= for {id, name, desc} <- excg.error_codes do %>
+defmodule <%= excg.app_mod %>.ErrorCode do
+  @moduledoc false<%= for {id, name, desc} <- excg.error_codes do %>
   def <%= Mix.Excg.patch(to_string(name), 30) %>, do: <%= :io_lib.format("~-4w", [id]) %>  # <%= desc %><% end %>
 end

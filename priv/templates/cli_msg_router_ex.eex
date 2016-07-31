@@ -2,7 +2,7 @@
 ### 该文件由程序生成，不要手动修改！！！
 
 defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Router do
-  alias <%= excg.app_mod %>.Plug.Msg
+  alias <%= excg.app_mod %>.Endpoint.Msg
   alias <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.MsgHandler
   require Logger
 
@@ -23,6 +23,7 @@ defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Router do
   def <%= name %>_msg(body \\ nil), do: msg(<%= id %>, body || <%= name %>_body)<% end %>
 <%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 0 do %>
 <%= Excg.Builder.CliMsgEx.build_def_val(excg, name) %><% end %>
+  @lint {Credo.Check.Refactor.CyclomaticComplexity, false}
   def call(conn, _opts) do
     msg_id = conn.request.msg_id
     case msg_id do<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 1 do %>

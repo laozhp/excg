@@ -194,7 +194,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_mod_msg_cli(excg) do
     lang = excg.cli_lang
-    dir = Path.join([excg.cli_out, excg.app, "plug"])
+    dir = Path.join([excg.cli_out, excg.app, "mod"])
     write_if_expired(
       dir, "packer.ex", excg, "cli_mod_packer_#{lang}.eex", all_msg: true)
     write_if_expired(
@@ -203,7 +203,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp do_gen_mod_msg_srv(excg) do
     lang = excg.srv_lang
-    dir = Path.join([excg.srv_out, excg.app, "plug"])
+    dir = Path.join([excg.srv_out, excg.app, "mod"])
     write_if_expired(
       dir, "packer.ex", excg, "srv_mod_packer_#{lang}.eex", all_msg: true)
     write_if_expired(
