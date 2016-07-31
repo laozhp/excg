@@ -20,7 +20,7 @@ defmodule LoginMsg do
     field :login_key,     "登录密钥", :string
   end
 
-  message 1, :login_resp,  "登录回复" do
+  message 1, :login_rsp,  "登录回复" do
     field :result,        "结果",     :integer
   end
 
@@ -50,14 +50,14 @@ defmodule LoginMsg do
     field :ifa,           "IOS广告标识", :string
   end
 
-  message 3, :create_user_resp, "创建用户回复" do
+  message 3, :create_user_rsp, "创建用户回复" do
     field :result,        "结果",     :integer
   end
 
   message 4, :list_role_req, "角色列表请求" do
   end
 
-  message 5, :list_role_resp, "角色列表回复" do
+  message 5, :list_role_rsp, "角色列表回复" do
     array :role_list,     "角色列表", :login_role_info
   end
 
@@ -68,7 +68,7 @@ defmodule LoginMsg do
     field :icon,          "头像",     :integer
   end
 
-  message 7, :create_role_resp, "创建角色回复" do
+  message 7, :create_role_rsp, "创建角色回复" do
     field :result,        "结果",     :integer
     field :role_info,     "角色信息", :login_role_info
   end
@@ -77,14 +77,14 @@ defmodule LoginMsg do
     field :role_id,       "角色ID",   :integer
   end
 
-  message 9, :enter_game_resp, "进入游戏回复" do
+  message 9, :enter_game_rsp, "进入游戏回复" do
     field :result,        "结果",     :integer
   end
 
   message 10, :heart_beat_req, "心跳请求" do
   end
 
-  message 11, :heart_beat_resp, "心跳回复" do
+  message 11, :heart_beat_rsp, "心跳回复" do
   end
 
   message 12, :client_ready, "客户端准备好" do
@@ -102,7 +102,7 @@ defmodule LoginMsg do
     field :text,          "文本信息",  :string
   end
 
-  message 21, :gm_cmd_resp, "GM命令回复" do
+  message 21, :gm_cmd_rsp, "GM命令回复" do
     field :text,          "文本信息",  :string
   end
 
@@ -135,7 +135,7 @@ defmodule LoginMsg do
     field :desc, "注释", :string
   end
 
-  message 121, :test_resp, "测试回复" do
+  message 121, :test_rsp, "测试回复" do
     field :integer, "整数", :integer
     field :string, "字符串", :string
     field :float, "浮点数", :float
