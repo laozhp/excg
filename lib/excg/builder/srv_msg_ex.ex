@@ -140,7 +140,7 @@ defmodule Excg.Builder.SrvMsgEx do
       end
     end
     space = String.duplicate("  ", align)
-    [space, "[", Enum.join(li_var, ", "), "] = ", lv_name, "\n",
+    [space, "[", Enum.join(li_var, ",\n#{space} "), "] = ", lv_name, "\n",
      space, "%{", li,
      space, "  }"]
   end
