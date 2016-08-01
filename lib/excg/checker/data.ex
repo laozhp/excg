@@ -154,8 +154,10 @@ defmodule Excg.Checker.Data do
       excg.cfg_map, excg.data_map,
       fn({cfg_name, cfg}, data_map) ->
         rows = data_map[cfg_name]
-        if rows != [] do
-          rows = check_cfg(excg, cfg, rows)
+        rows = if rows != [] do
+          check_cfg(excg, cfg, rows)
+        else
+          rows
         end
         Map.put(data_map, cfg_name, rows)
       end)
@@ -184,30 +186,40 @@ defmodule Excg.Checker.Data do
   defp check_cfg_fld(excg, fld, rows) do
     fld_type = fld.type
     excg = %{excg | fld_i: fld.index, fld_path: [fld.desc]}
-    unless Excg.basic_type?(fld_type) or fld_type == :virtual do
-      rows = check_cfg_fld_type(excg, fld, rows)
+    rows = unless Excg.basic_type?(fld_type) or fld_type == :virtual do
+      check_cfg_fld_type(excg, fld, rows)
+    else
+      rows
     end
     opts = fld.opts
-    if fld_type == :string && Keyword.get(opts, :eex) do
-      rows = eval_eex_tpl(excg, fld, rows)
+    rows = if fld_type == :string && Keyword.get(opts, :eex) do
+      eval_eex_tpl(excg, fld, rows)
+    else
+      rows
     end
     if Keyword.get(opts, :pri_key) || Keyword.get(opts, :unique) do
       check_unique(excg, fld, rows)
     end
-    if Keyword.get(opts, :order) do
-      rows = check_cfg_fld_order(excg, fld, rows)
+    rows = if Keyword.get(opts, :order) do
+      check_cfg_fld_order(excg, fld, rows)
+    else
+      rows
     end
-    if Keyword.get(opts, :sequence) do
-      rows = if fld_type == :virtual do
+    rows = if Keyword.get(opts, :sequence) do
+      if fld_type == :virtual do
         build_cfg_fld_sequence(excg, fld, rows)
       else
         check_cfg_fld_sequence(excg, fld, rows)
       end
+    else
+      rows
     end
     ref_name = Keyword.get(opts, :refrence)
-    if ref_name do
+    excg = if ref_name do
       ref = excg.ref_map[ref_name]
-      excg = %{excg | ref: ref, ref_name: ref_name}
+      %{excg | ref: ref, ref_name: ref_name}
+    else
+      excg
     end
     cfun = Keyword.get(opts, :cfun)
     cond do
@@ -318,21 +330,25 @@ defmodule Excg.Checker.Data do
   defp check_type_fld(excg, fld, data) do
     excg = %{excg | fld_path: [fld.desc | excg.fld_path]}
     fld_type = fld.type
-    unless Excg.basic_type?(fld_type) or fld_type == :virtual do
+    data = unless Excg.basic_type?(fld_type) or fld_type == :virtual do
       type = excg.type_map[fld_type]
-      data = if fld.kind == :field do
+      if fld.kind == :field do
         check_type(excg, type, data)
       else
         for item <- data do
           check_type(excg, type, item)
         end
       end
+    else
+      data
     end
     opts = fld.opts
     ref_name = Keyword.get(opts, :refrence)
-    if ref_name do
+    excg = if ref_name do
       ref = excg.ref_map[ref_name]
-      excg = %{excg | ref: ref, ref_name: ref_name}
+      %{excg | ref: ref, ref_name: ref_name}
+    else
+      excg
     end
     cfun = Keyword.get(opts, :cfun)
     cond do

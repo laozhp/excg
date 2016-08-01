@@ -28,14 +28,15 @@ defmodule Excg.Parser.ExcelXml do
       xpath(row, ~x"Cell"l), {0, []},
       fn(cell, {index, list}) ->
         ss_index = xpath(cell, ~x"@ss:Index")
-        if ss_index do
+        {index, list} = if ss_index do
           count = List.to_integer(ss_index) - index - 1
-          index = index + count
-          list = List.duplicate(nil, count) ++ list
+          {index + count, List.duplicate(nil, count) ++ list}
+        else
+          {index, list}
         end
         data = xpath(cell, ~x"Data/text()")
         field = if data, do: List.to_atom(data), else: nil
-        unless map[field], do: field = nil
+        field = if map[field], do: field, else: nil
         {index + 1, [field | list]}
       end)
     list = Enum.reverse(list)
@@ -63,11 +64,15 @@ defmodule Excg.Parser.ExcelXml do
       xpath(row, ~x"Cell"l), {0, %{}},
       fn(cell, {index, map}) ->
         ss_index = xpath(cell, ~x"@ss:Index")
-        if ss_index do
+        {index, map} = if ss_index do
           count = List.to_integer(ss_index) - index - 1
           if count > 0 do
-            {index, map} = parse_empty_cells(excg, count, row_i, index, map)
+            parse_empty_cells(excg, count, row_i, index, map)
+          else
+            {index, map}
           end
+        else
+          {index, map}
         end
         map = parse_cell(excg, cell, row_i, index, map)
         {index + 1, map}
@@ -75,8 +80,10 @@ defmodule Excg.Parser.ExcelXml do
     count = tuple_size(excg.fld_names) - index
     if count > 0 do
       {_index, map} = parse_empty_cells(excg, count, row_i, index, map)
+      map
+    else
+      map
     end
-    map
   end
 
   defp parse_empty_cells(excg, count, row_i, index, map) do

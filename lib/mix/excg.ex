@@ -71,10 +71,11 @@ defmodule Mix.Excg do
 
   def find_template(excg, filename) do
     tpl_file = Path.join(excg.dir, filename)
-    unless File.exists?(tpl_file) do
-      tpl_file = Path.join([excg.excg_dir, "priv", "templates", filename])
+    if File.exists?(tpl_file) do
+      tpl_file
+    else
+      Path.join([excg.excg_dir, "priv", "templates", filename])
     end
-    tpl_file
   end
 
   def now do

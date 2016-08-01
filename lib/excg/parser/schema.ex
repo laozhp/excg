@@ -76,7 +76,7 @@ defmodule Excg.Parser.Schema do
   end
 
   defp parse_const(excg) do
-    functions = Const.__info__(:functions)
+    functions = apply(Const, :__info__, [:functions])
     types = for {name, arity} <- functions, arity == 0, do: name
     types = Enum.sort(types)
     {list, map} = Enum.reduce(
@@ -105,7 +105,7 @@ defmodule Excg.Parser.Schema do
   end
 
   defp parse_error_code(excg) do
-    functions = ErrorCode.__info__(:functions)
+    functions = apply(ErrorCode, :__info__, [:functions])
     error_codes = for {name, arity} <- functions, arity == 0 do
       {id, desc} = apply(ErrorCode, name, [])
       {id, name, desc}

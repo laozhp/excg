@@ -93,7 +93,11 @@ defmodule Excg.Parser.Data do
       end
     end
 
-    if const, do: data = parse_const(excg, excg.const_map[const], data)
+    data = if const do
+      parse_const(excg, excg.const_map[const], data)
+    else
+      data
+    end
     Excg.Checker.Data.check_max(excg, opts, data)
     Excg.Checker.Data.check_min(excg, opts, data)
     Excg.Checker.Data.check_max_len(excg, opts, data)
@@ -112,10 +116,13 @@ defmodule Excg.Parser.Data do
         const = Keyword.get(opts, :const)
         if const do
           map = excg.const_map[const]
-          val = for item <- val, do: parse_const(excg, map, item)
+          for item <- val, do: parse_const(excg, map, item)
+        else
+          val
         end
+      else
+        val
       end
-      val
     else
       for item <- data do
         parse_field(excg, fld, item)

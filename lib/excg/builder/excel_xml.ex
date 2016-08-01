@@ -10,8 +10,10 @@ defmodule Excg.Builder.ExcelXml do
       |> to_string
       |> String.replace(" xmlns:", "\n xmlns:")
       |> String.replace(" x:FullRows=", "\n   x:FullRows=")
-    if elem(:os.type, 0) == :win32 do
-      xml = String.replace(xml, "\n", "\r\n")
+    xml = if elem(:os.type, 0) == :win32 do
+      String.replace(xml, "\n", "\r\n")
+    else
+      xml
     end
     File.write!(filename, xml)
   end
@@ -137,11 +139,17 @@ defmodule Excg.Builder.ExcelXml do
 
   defp cfg_const_list(excg, fld_desc, type, opts, acc) do
     const = Keyword.get(opts, :const)
-    if const, do: acc = [{fld_desc, const} | acc]
+    acc = if const, do: [{fld_desc, const} | acc], else: acc
     cfun = Keyword.get(opts, :cfun)
-    if cfun do
+    acc = if cfun do
       cfun_const = Keyword.get(elem(cfun, 1), :const)
-      if cfun_const != const, do: acc = [{fld_desc, cfun_const} | acc]
+      if cfun_const != const do
+        [{fld_desc, cfun_const} | acc]
+      else
+        acc
+      end
+    else
+      acc
     end
     if Excg.basic_type?(type) or type == :virtual do
       acc
@@ -201,14 +209,15 @@ defmodule Excg.Builder.ExcelXml do
       xpath(row, ~x"Cell"l), {0, []},
       fn(cell, {index, list}) ->
         ss_index = xpath(cell, ~x"@ss:Index")
-        if ss_index do
+        {index, list} = if ss_index do
           count = List.to_integer(ss_index) - index - 1
-          index = index + count
-          list = List.duplicate(nil, count) ++ list
+          {index + count, List.duplicate(nil, count) ++ list}
+        else
+          {index, list}
         end
         data = xpath(cell, ~x"Data/text()")
         field = if data, do: List.to_atom(data), else: nil
-        unless map[field], do: field = nil
+        field = if map[field], do: field, else: nil
         {index + 1, [field | list]}
       end)
     list = Enum.reduce(excg.cfg.list, list, fn(fld, list) ->
@@ -244,9 +253,10 @@ defmodule Excg.Builder.ExcelXml do
       attr = xmlAttribute(attr, value: "#{size}")
       attributes = List.keyreplace(
         attributes, :"ss:ExpandedColumnCount", xmlAttribute(:name), attr)
-      table = xmlElement(table, attributes: attributes)
+      xmlElement(table, attributes: attributes)
+    else
+      table
     end
-    table
   end
 
   defp update_row(table, excg, row, data_fun) do
@@ -255,19 +265,23 @@ defmodule Excg.Builder.ExcelXml do
       xpath(row, ~x"Cell"l), {0, []},
       fn(cell, {index, cells}) ->
         ss_index = xpath(cell, ~x"@ss:Index")
-        if ss_index do
+        {index, cells} = if ss_index do
           count = List.to_integer(ss_index) - index - 1
           if count > 0 do
-            {index, cells} = insert_cells(
-              excg, count, data_fun, row_pos, index, cells)
+            insert_cells(excg, count, data_fun, row_pos, index, cells)
+          else
+            {index, cells}
           end
+        else
+          {index, cells}
         end
         update_cell(excg, cell, data_fun, row_pos, index, cells)
       end)
     count = tuple_size(excg.fld_names) - index
-    if count > 0 do
-      {_index, cells} = insert_cells(
-        excg, count, data_fun, row_pos, index, cells)
+    {_index, cells} = if count > 0 do
+      insert_cells(excg, count, data_fun, row_pos, index, cells)
+    else
+      {index, cells}
     end
     row = insert_text(row, Enum.reverse(cells))
     content =
@@ -290,14 +304,20 @@ defmodule Excg.Builder.ExcelXml do
       excg.empty_cell
     end
     fld_name = elem(excg.fld_names, index)
-    if fld_name do
+    cell = if fld_name do
       {name, desc} = data_fun.(excg, excg.cfg.map, fld_name)
-      if name != "" do
-        cell = update_name(excg, name, cell)
+      cell = if name != "" do
+        update_name(excg, name, cell)
+      else
+        cell
       end
       if desc != "" do
-        cell = update_desc(excg, desc, cell)
+        update_desc(excg, desc, cell)
+      else
+        cell
       end
+    else
+      cell
     end
     cell =
       cell

@@ -60,14 +60,15 @@ defmodule Excg.Checker.Schema do
               end
             end)
           if result == nil do
-            sure = false
+            {map, dep_map, changed, false}
           else
-            changed = true
-            dep_map = Map.put(dep_map, type_name, result)
-            map = put_in(map, [type_name, :info, :need_check], result)
+            map2 = put_in(map, [type_name, :info, :need_check], result)
+            dep_map2 = Map.put(dep_map, type_name, result)
+            {map2, dep_map2, true, sure}
           end
+        else
+          {map, dep_map, changed, sure}
         end
-        {map, dep_map, changed, sure}
       end)
     fix_type_need_check_result(map, dep_map, changed, sure)
   end
@@ -109,7 +110,7 @@ defmodule Excg.Checker.Schema do
     if is_tuple(val) and tuple_size(val) == 2 do
       {name, opts} = val
       if is_atom(name) and is_list(opts) do
-        functions = Cfun.__info__(:functions)
+        functions = apply(Cfun, :__info__, [:functions])
         case List.keyfind(functions, name, 0) do
           {^name, 3} -> nil
           _ -> "找不到函数#{name}"
@@ -123,8 +124,10 @@ defmodule Excg.Checker.Schema do
   end
 
   defp check_type_fld(excg, type, fld) do
-    if fld.type == :virtual do
-      type = put_in(type, [:info, :need_check], true)
+    type = if fld.type == :virtual do
+      put_in(type, [:info, :need_check], true)
+    else
+      type
     end
     if fld.kind == :field do
       Enum.reduce(fld.opts, type, fn({opt, val}, type) ->
@@ -354,21 +357,29 @@ defmodule Excg.Checker.Schema do
     type = fld.type
     bool = if type == :virtual, do: true, else: false
     cfg = set_cfg_fld_need_check(cfg, fld, bool)
-    unless Excg.basic_type?(type) or type == :virtual do
+    cfg = unless Excg.basic_type?(type) or type == :virtual do
       excg_type = excg.type_map[type]
       if excg_type do
         if excg_type.info.need_check do
-          cfg = set_cfg_fld_need_check(cfg, fld)
+          set_cfg_fld_need_check(cfg, fld)
+        else
+          cfg
         end
       else
         raise "配置#{cfg.info.name}，字段#{fld.name}，错误：找不到类型#{type}"
       end
+    else
+      cfg
     end
-    if Keyword.get(fld.opts, :cli_out, true) do
-      cfg = update_in(cfg, [:info, :cli_out], &[fld.name | &1])
+    cfg = if Keyword.get(fld.opts, :cli_out, true) do
+      update_in(cfg, [:info, :cli_out], &[fld.name | &1])
+    else
+      cfg
     end
-    if Keyword.get(fld.opts, :srv_out, true) do
-      cfg = update_in(cfg, [:info, :srv_out], &[fld.name | &1])
+    cfg = if Keyword.get(fld.opts, :srv_out, true) do
+      update_in(cfg, [:info, :srv_out], &[fld.name | &1])
+    else
+      cfg
     end
     if fld.kind == :field do
       Enum.reduce(fld.opts, cfg, fn({opt, val}, cfg) ->

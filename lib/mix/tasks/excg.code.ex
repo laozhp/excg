@@ -70,10 +70,11 @@ defmodule Mix.Tasks.Excg.Code do
   end
 
   defp build_mtime_map(excg) do
-    unless excg.force do
-      excg = do_build_mtime_map(excg)
+    if excg.force do
+      excg
+    else
+      do_build_mtime_map(excg)
     end
-    excg
   end
 
   defp gen_const_srv(excg) do
