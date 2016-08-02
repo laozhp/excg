@@ -24,10 +24,10 @@ defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Router do
 <%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 1 do %>
 <%= Excg.Builder.SrvMsgEx.build_def_val(excg, name) %><% end %>
   @lint {Credo.Check.Refactor.CyclomaticComplexity, false}
-  def call(conn, _opts) do
+  def route(conn) do
     msg_id = conn.request.msg_id
     case msg_id do<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 0 do %>
-      <%= :io_lib.format("~-3w", [id]) %> -> MsgHandler.<%= name %>(conn, [])<% end %>
+      <%= :io_lib.format("~-3w", [id]) %> -> MsgHandler.<%= name %>(conn)<% end %>
       _   -> Logger.warn("<%= mod.mod_name %>: unknown msg_id #{msg_id}")
     end
   end

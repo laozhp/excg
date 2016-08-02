@@ -28,10 +28,10 @@ defmodule <%= excg.app_mod %>.Mod.Router do
   def id_to_desc(_), do: "未知"
 
   @lint {Credo.Check.Refactor.CyclomaticComplexity, false}
-  def route(conn, _opts) do
+  def route(conn) do
     mod_id = conn.request.mod_id
     case mod_id do<%= for mod <- excg.msg_mod_infos do %>
-      <%= :io_lib.format("~-3w", [mod.id]) %> -> <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Router.call(conn, [])  # <%= mod.desc %><% end %>
+      <%= :io_lib.format("~-3w", [mod.id]) %> -> <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Router.route(conn)  # <%= mod.desc %><% end %>
       _   -> Logger.warn("unknown mod_id #{mod_id}")
     end
   end
