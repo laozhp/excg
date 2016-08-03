@@ -1,7 +1,7 @@
 defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.MsgHandler do
   @moduledoc false
 <%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 1 do %>
-  def <%= name %>(conn, _opts) do
+  def <%= name %>(conn) do
     conn
   end
 <% end %>
