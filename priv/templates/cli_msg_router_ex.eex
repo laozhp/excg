@@ -2,13 +2,13 @@
 ### 该文件由程序生成，不要手动修改！！！
 
 defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Router do
-  alias <%= excg.app_mod %>.Endpoint.Msg
-  alias <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.MsgHandler
-  require Logger
-
   @moduledoc """
   <%= mod.desc %>
   """
+
+  alias <%= excg.app_mod %>.Endpoint.Msg
+  alias <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.MsgHandler
+  require Logger
 
   def mod_id, do: <%= mod.id %>
 <%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id do %>
