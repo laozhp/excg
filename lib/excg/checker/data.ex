@@ -230,7 +230,7 @@ defmodule Excg.Checker.Data do
   end
 
   defp check_cfg_fld_type(excg, fld, rows) do
-    header_rows = header_rows
+    header_rows = header_rows()
     fld_name = fld.name
     type = excg.type_map[fld.type]
     for {row, i} <- Enum.with_index(rows) do
@@ -247,7 +247,7 @@ defmodule Excg.Checker.Data do
   end
 
   defp check_cfg_fld_cfun(excg, fld, cfun, rows) do
-    header_rows = header_rows
+    header_rows = header_rows()
     fld_name = fld.name
     {fun_name, fun_opts} = cfun
     for {row, i} <- Enum.with_index(rows) do
@@ -259,7 +259,7 @@ defmodule Excg.Checker.Data do
   end
 
   defp check_cfg_fld_order(excg, fld, rows) do
-    header_rows = header_rows
+    header_rows = header_rows()
     fld_name = fld.name
     is_asc = Keyword.get(fld.opts, :order) == :asc
     Enum.reduce(Enum.with_index(rows), hd(rows)[fld_name], fn({row, i}, acc) ->
@@ -289,7 +289,7 @@ defmodule Excg.Checker.Data do
   end
 
   defp check_cfg_fld_sequence(excg, fld, rows) do
-    header_rows = header_rows
+    header_rows = header_rows()
     fld_name = fld.name
     opt = Keyword.get(fld.opts, :sequence)
     Enum.reduce(Enum.with_index(rows), opt, fn({row, i}, {start, step}) ->
@@ -304,7 +304,7 @@ defmodule Excg.Checker.Data do
   end
 
   defp check_cfg_fld_refrence(excg, fld, rows) do
-    header_rows = header_rows
+    header_rows = header_rows()
     fld_name = fld.name
     for {row, i} <- Enum.with_index(rows) do
       excg = %{excg | row_i: header_rows + i}
