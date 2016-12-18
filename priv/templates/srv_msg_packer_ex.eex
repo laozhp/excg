@@ -8,7 +8,6 @@ defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Packer do
 
   require Logger
 
-  @lint {Credo.Check.Refactor.CyclomaticComplexity, false}
   def pack!(msg_id, body) do
     case msg_id do<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 1 do %>
       <%= :io_lib.format("~-3w", [id]) %> -> pack_<%= name %>(body)  # <%= msg.info.desc %><% end %>
@@ -16,7 +15,6 @@ defmodule <%= excg.app_mod %>.Mod.<%= mod.mod_name %>.Packer do
     end
   end
 
-  @lint {Credo.Check.Refactor.CyclomaticComplexity, false}
   def unpack!(msg_id, body) do
     case msg_id do<%= for name <- mod.msgs, msg = excg.msg_map[name], id = msg.info.id, rem(id, 2) == 0 do %>
       <%= :io_lib.format("~-3w", [id]) %> -> unpack_<%= name %>(body)  # <%= msg.info.desc %><% end %>

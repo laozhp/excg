@@ -27,7 +27,6 @@ defmodule <%= excg.app_mod %>.Mod.Router do
   def id_to_desc(<%= mod.id %>), do: "<%= mod.desc %>"<% end %>
   def id_to_desc(_), do: "未知"
 
-  @lint {Credo.Check.Refactor.CyclomaticComplexity, false}
   def route(conn) do
     mod_id = conn.request.mod_id
     case mod_id do<%= for mod <- excg.msg_mod_infos do %>
