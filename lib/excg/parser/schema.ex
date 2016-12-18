@@ -15,7 +15,7 @@ defmodule Excg.Parser.Schema do
     Path.join(dir, "ebin") |> File.mkdir_p!
     for f <- File.ls!(dir), String.ends_with?(f, ".ex") do
       module_name = load_module(excg, dir, f)
-      mod_name = Mix.Utils.camelize(Path.rootname(f))
+      mod_name = Macro.camelize(Path.rootname(f))
       if to_string(module_name) != "Elixir." <> mod_name do
         raise "模块名#{mod_name}与文件名#{f}不匹配"
       end
@@ -25,7 +25,7 @@ defmodule Excg.Parser.Schema do
 
   defp load_module(excg, dir, file) do
     path = Path.join(dir, file)
-    mod = Mix.Utils.camelize(Path.rootname(file))
+    mod = Macro.camelize(Path.rootname(file))
     beam_file = "Elixir.#{mod}.beam"
     beam_path = Path.join([dir, "ebin", beam_file])
     if (not excg.force) and File.exists?(beam_path) do
@@ -57,7 +57,7 @@ defmodule Excg.Parser.Schema do
     dir = excg.dir
     mods = for f <- File.ls!(dir), String.ends_with?(f, ".exs") do
       module_name = load_module(excg, dir, f)
-      mod_name = Mix.Utils.camelize(Path.rootname(f))
+      mod_name = Macro.camelize(Path.rootname(f))
       if to_string(module_name) != "Elixir." <> mod_name do
         raise "模块名#{mod_name}与文件名#{f}不匹配"
       end
@@ -120,7 +120,7 @@ defmodule Excg.Parser.Schema do
       fn({mod, src_file}, {map, type_map}) ->
         ex_mod = String.to_atom("Elixir." <> mod)
         [cfg_name] = apply(ex_mod, :cfgs, [])
-        mod_name = Mix.Utils.camelize(to_string(cfg_name))
+        mod_name = Macro.camelize(to_string(cfg_name))
         if mod_name <> "Cfg" != mod do
           raise "module name not match: #{mod}, #{cfg_name}"
         end
@@ -145,7 +145,7 @@ defmodule Excg.Parser.Schema do
         ex_mod = String.to_atom("Elixir." <> mod)
         mod_info = apply(ex_mod, :module, [])
         name = mod_info.name
-        mod_name = Mix.Utils.camelize(to_string(name))
+        mod_name = Macro.camelize(to_string(name))
         if mod_name <> "Msg" != mod do
           raise "module name not match: #{mod}, #{name}"
         end

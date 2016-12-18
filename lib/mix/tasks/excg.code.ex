@@ -62,7 +62,7 @@ defmodule Mix.Tasks.Excg.Code do
     cli_lang = Mix.Excg.get_arg_env(arg, env, :cli_lang, "lua")
     srv_lang = Mix.Excg.get_arg_env(arg, env, :srv_lang, "ex")
     force = Mix.Excg.get_arg_env(arg, env, :force, false)
-    app_mod = Mix.Utils.camelize(app)
+    app_mod = Macro.camelize(app)
     %{excg | app: app, app_mod: app_mod, dir: dir, xml_dir: xml_dir,
              cli_out: cli_out, srv_out: srv_out,
              json_out: json_out, yaml_out: yaml_out,
@@ -355,7 +355,7 @@ defmodule Mix.Tasks.Excg.Code do
 
   defp path_to_ex_mod(path) do
     list = for dir <- Path.split(path) do
-      Mix.Utils.camelize(dir)
+      Macro.camelize(dir)
     end
     Enum.join(list, ".")
   end
