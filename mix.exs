@@ -5,7 +5,7 @@ defmodule Excg.Mixfile do
     [app: :excg,
      version: "1.0.0",
      elixir: "~> 1.0",
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application

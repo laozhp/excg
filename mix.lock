@@ -1,1 +1,1 @@
-%{"sweet_xml": {:hex, :sweet_xml, "0.6.1", "a56f235171f35a32807ce44798dedc748ce249fca574674fecd29c1321cab0de", [:mix], []}}
+%{"sweet_xml": {:hex, :sweet_xml, "0.6.3", "814265792baeb163421811c546581c522dfdcb9d1767b1e59959c52906414e80", [:mix], []}}
